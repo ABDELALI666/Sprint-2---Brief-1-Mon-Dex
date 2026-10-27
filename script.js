@@ -39,15 +39,9 @@
 // =============================================================
 // script.js — Dex Interactif (Yu-Gi-Oh!)
 // =============================================================
-// DOM Elements
-const grid = document.getElementById("grid");
-const searchInput = document.getElementById("search");
-const lesBoutons = document.querySelectorAll("#filters button");
-const detailSection = document.getElementById("detail");
-
-// =============================================================
 // FUNCTION 1
 // =============================================================
+const grid = document.getElementById("grid");
 function renderGrid(list) {
   grid.innerHTML = ""
   list.forEach(item => {
@@ -68,6 +62,7 @@ renderGrid(creatures);
 // =============================================================
 // FUNCTION 2
 // =============================================================
+const detailSection = document.getElementById("detail");
 function showDetail(id) {
   const item = creatures.find(c => c.id === id);
   const atkPercent = (item.stats.attack / 4000) * 100;
@@ -108,6 +103,7 @@ function showDetail(id) {
 // =============================================================
 // FUNCTION 3
 // =============================================================
+const searchInput = document.getElementById("search");
 searchInput.addEventListener("input", (e) => {
   const texte = e.target.value.toLowerCase().trim();
   const cartesTrouvees = creatures.filter(c => c.name.toLowerCase().includes(texte));
@@ -115,6 +111,7 @@ searchInput.addEventListener("input", (e) => {
 // =============================================================
 // FUNCTION 4
 // =============================================================
+const lesBoutons = document.querySelectorAll("#filters button");
 lesBoutons.forEach(bouton => {
   bouton.addEventListener("click", (e) => {
   const typeChoisi = e.target.textContent.trim();

@@ -148,6 +148,65 @@ lesBoutons.forEach(bouton => {
     })})
 // =============================================================
 // FUNCTION 5
-// ============================================================= 
-
+// =============================================================
 const form = document.getElementById("creature-form");
+const rules = {
+  id: /^#\d{3}$/,
+  name: /^[A-Za-zÀ-ÿ0-9][A-Za-zÀ-ÿ0-9 .'-]{1,29}$/,
+  stat1: /^\d{1,4}$/,
+  stat2: /^\d{1,4}$/,
+  level: /^\d{1,2}$/,
+  image: /^https:\/\/\S+\.(png|jpe?g|webp|gif)$/i,
+  description: /^[\s\S]{10,200}$/};
+
+function checkInput(input) {
+  const name = input.name;
+  const value = input.value.trim();
+  const errorSpan = input.nextElementSibling;
+
+  if (name === "type" && value === "") {
+    if (errorSpan) errorSpan.textContent = "Veuillez choisir un type.";
+    return false;}
+  if (name === "id" && creatures.some(c => c.id === value)) {
+    if (errorSpan) errorSpan.textContent = "Ce numéro existe déjà.";
+    return false;}
+  if (rules[name] && !rules[name].test(value)) {
+    if (errorSpan) errorSpan.textContent = "Format invalide.";
+    return false;}
+  if (errorSpan) errorSpan.textContent = "";
+  return true;}
+
+  const inputs = form.querySelectorAll("input, select, textarea");
+inputs.forEach(input => {
+  input.addEventListener("blur", () => checkInput(input));
+  input.addEventListener("change", () => checkInput(input));
+});
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let isFormValid = true;
+
+  inputs.forEach(input => {
+    if (!checkInput(input)) isFormValid = false;
+  });
+
+  if (isFormValid) {
+    const data = new FormData(form);
+    const newCreature = {
+      id: data.get("id").trim(),
+      name: data.get("name").trim(),
+      type: data.get("type"),
+      level: data.get("level").trim(),
+      stats:{attack: Number(data.get("stat1")),
+            defence: Number(data.get("stat2"))},
+      image: data.get("image").trim(),
+      description: data.get("description").trim()};
+
+    creatures.push(newCreature);
+    renderGrid(creatures);
+    form.reset();
+    alert("Créature ajoutée avec succès !");
+  }});
+// =============================================================
+// FUNCTION 6
+// =============================================================

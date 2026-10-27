@@ -130,3 +130,22 @@ function showDetail(id) {
     const idDeLaCarte = card.getAttribute("data-id");
     showDetail(idDeLaCarte);
   }})
+// =============================================================
+// FUNCTION 3
+// =============================================================
+searchInput.addEventListener("input", (e) => {
+  const texte = e.target.value.toLowerCase().trim();
+  const cartesTrouvees = creatures.filter(c => c.name.toLowerCase().includes(texte));
+  renderGrid(cartesTrouvees);})
+// =============================================================
+// FUNCTION 4
+// =============================================================
+lesBoutons.forEach(bouton => {
+  bouton.addEventListener("click", (e) => {
+  const typeChoisi = e.target.textContent.trim();
+  const cartesFiltrees=creatures.filter(c =>c.type.toUpperCase()===typeChoisi);
+    renderGrid(cartesFiltrees);
+    })})
+// =============================================================
+// FUNCTION 5
+// =============================================================

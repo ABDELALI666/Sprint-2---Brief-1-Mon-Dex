@@ -93,25 +93,20 @@
         <label class="flex flex-col gap-1 text-sm font-bold">Type
           <select name="type" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
             <option value="">Choisir un type</option>
-            <option>Feu</option><option>Eau</option><option>Plante</option>
-            <option>Électrik</option><option>Glace</option><option>Ténèbres</option>
+            <option>FEU</option><option>LUMIÈRE</option><option>TÉNÈBRES</option><option>VENT</option><option>TERRE</option>
           </select>
           <span class="error-message text-xs font-normal text-red-500"></span>
         </label>
-        <label class="flex flex-col gap-1 text-sm font-bold">Niveau
-          <input name="level" type="text" placeholder="Base, Niveau 1…" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+        <label class="flex flex-col gap-1 text-sm font-bold">Etoiles
+          <input name="level" type="text" placeholder="1-12" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
           <span class="error-message text-xs font-normal text-red-500"></span>
         </label>
-        <label class="flex flex-col gap-1 text-sm font-bold">Statistique 1
-          <input name="stat1" type="text" placeholder="0 à 999" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+        <label class="flex flex-col gap-1 text-sm font-bold">ATK
+          <input name="stat1" type="text" placeholder="0 à 4000" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
           <span class="error-message text-xs font-normal text-red-500"></span>
         </label>
-        <label class="flex flex-col gap-1 text-sm font-bold">Statistique 2
-          <input name="stat2" type="text" placeholder="0 à 999" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
-          <span class="error-message text-xs font-normal text-red-500"></span>
-        </label>
-        <label class="flex flex-col gap-1 text-sm font-bold">Statistique 3
-          <input name="stat3" type="text" placeholder="0 à 999" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
+        <label class="flex flex-col gap-1 text-sm font-bold">DEF
+          <input name="stat2" type="text" placeholder="0 à 4000" class="field font-normal focus:outline-none focus:ring-2 focus:ring-brand">
           <span class="error-message text-xs font-normal text-red-500"></span>
         </label>
         <label class="flex flex-col gap-1 text-sm font-bold">Lien de l'image
@@ -133,7 +128,6 @@
   <footer class="mx-auto max-w-7xl px-8 pb-10 text-sm text-muted">
     Images : [source des images de votre univers]. Projet de fans réalisé dans le cadre d'une formation.
   </footer>
-
   <script src="./data.js"></script>
   <script src="./script.js"></script>
 </body>

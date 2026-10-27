@@ -4,66 +4,41 @@
 // Les données viennent de data.js (la constante `creatures`).
 // Écrivez votre code ici, fonctionnalité par fonctionnalité.
 // Une carte GitHub Projects et au moins un commit par fonctionnalité.
-
-
 // -------------------------------------------------------------
 // 1. AFFICHAGE
 // Supprimez les cartes écrites à la main dans index.html et
 // construisez la grille à partir du tableau `creatures`.
 // -------------------------------------------------------------
-
-
-// -------------------------------------------------------------
 // 2. DÉTAIL
 // Un clic sur une carte ouvre le panneau de détail :
 // image, description, et statistiques affichées en barres.
 // -------------------------------------------------------------
-
-
-// -------------------------------------------------------------
 // 3. RECHERCHE
 // La liste se met à jour pendant la saisie d'un nom
 // (sans tenir compte des majuscules).
-// -------------------------------------------------------------
-
-
 // -------------------------------------------------------------
 // 4. FILTRE
 // Les boutons de type n'affichent que les créatures de ce type ;
 // « Tous » réinitialise le filtre.
 // La recherche et le filtre fonctionnent ENSEMBLE.
 // -------------------------------------------------------------
-
-
-// -------------------------------------------------------------
 // 5. CRÉER UNE CRÉATURE
 // Validez chaque champ du formulaire avec une expression régulière
 // (voir le tableau du brief). Affichez le message d'erreur sous le
 // champ, et n'ajoutez jamais une créature invalide.
 // -------------------------------------------------------------
-
-
-// -------------------------------------------------------------
 // 6. MON ÉQUIPE
 // Boutons « Ajouter à l'équipe » et « Retirer », gérés avec UN SEUL
 // écouteur sur la grille et UN SEUL sur l'équipe (délégation).
-// -------------------------------------------------------------
-
-
 // -------------------------------------------------------------
 // 7. RÈGLES DE L'ÉQUIPE
 // 6 créatures au maximum, pas de doublon, un message clair quand
 // une action est refusée, et un compteur (x/6).
 // -------------------------------------------------------------
-
-
-// -------------------------------------------------------------
 // BONUS : LocalStorage, Fetch API, tri, comparaison
-// -------------------------------------------------------------
 // =============================================================
 // script.js — Dex Interactif (Yu-Gi-Oh!)
 // =============================================================
-
 // DOM Elements
 const grid = document.getElementById("grid");
 const searchInput = document.getElementById("search");
@@ -208,5 +183,40 @@ form.addEventListener("submit", (e) => {
     alert("Créature ajoutée avec succès !");
   }});
 // =============================================================
-// FUNCTION 6
+// FUNCTION 6 & 7
 // =============================================================
+let team = [];
+function afficherTeam() {
+  const boite = document.getElementById("team-slots");
+  boite.innerHTML = "";
+  for (let i = 0; i < 6; i++) {
+    if (team[i]) {
+      boite.innerHTML += `
+        <div class="flex h-12 items-center justify-between border-2 border-brand bg-brand-light px-3 rounded-xl">
+          <span class="font-bold">0${i + 1} - ${team[i].name}</span>
+          <button class="btn-remove text-red-500 font-bold" data-id="${team[i].id}">✕</button>
+        </div>`;
+    } else {
+      boite.innerHTML += `
+        <div class="flex h-12 items-center justify-center border-2 border-dashed border-gray-400 text-gray-500 rounded-xl">
+          0${i + 1}
+        </div>`;}}
+  document.getElementById("team-count").textContent = team.length;
+  document.getElementById("team-count-aside").textContent = team.length;
+}
+grid.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON" && e.target.textContent.includes("Ajouter")) {
+    e.stopPropagation(); 
+    const idCarte = e.target.closest("article").getAttribute("data-id");
+    if (team.length === 6) return alert(" MAX 6 creatures !");
+    if (team.find(c => c.id === idCarte)) return alert(" Deja dans l'equipe !");
+    const carte = creatures.find(c => c.id === idCarte);
+    team.push(carte);
+    afficherTeam();
+  }});
+document.getElementById("team-slots").addEventListener("click", (e) => {
+  if (e.target.classList.contains("btn-remove")) {
+    const idCarte = e.target.getAttribute("data-id");
+    team = team.filter(c => c.id !== idCarte); 
+    afficherTeam();
+  }});
